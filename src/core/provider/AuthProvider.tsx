@@ -72,6 +72,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const logout = () => {
     setUserInfo(undefined);
+    localStorage.clear();
   };
 
   const isAuthen = userInfo ? true : false;

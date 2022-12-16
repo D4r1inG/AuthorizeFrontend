@@ -9,13 +9,11 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./core/provider/AuthProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ConfigProvider theme={antdConfig}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </ConfigProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <ConfigProvider theme={antdConfig}>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ConfigProvider>
+  </BrowserRouter>
 );
