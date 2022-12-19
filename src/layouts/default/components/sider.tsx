@@ -3,11 +3,13 @@ import Sider from "antd/es/layout/Sider";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../core/provider/AuthProvider";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 const MENUS = [
   {
     label: "GHTK building",
     key: "GHTK-building",
+    icon: <PlusCircleOutlined />,
     allowedwarehouse: ["GHTK building"],
     children: [
       {
@@ -44,6 +46,7 @@ const MENUS = [
   {
     label: "Kho 1",
     key: "Kho1",
+    icon: <PlusCircleOutlined />,
     allowedwarehouse: ["Kho1"],
     children: [
       {
@@ -56,6 +59,7 @@ const MENUS = [
   {
     label: "Kho 2",
     key: "Kho2",
+    icon: <PlusCircleOutlined />,
     allowedwarehouse: ["Kho2"],
     children: [
       {
@@ -72,24 +76,24 @@ const SiderApp: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getNewMenus = (item) => {
-    const newChildren = item.children.filter((item) =>
-      item.allowed.includes(userInfo?.position)
-    );
+  // const getNewMenus = (item) => {
+  //   const newChildren = item.children.filter((item) =>
+  //     item.allowed.includes(userInfo?.position)
+  //   );
 
-    return newChildren.map((item) => {
-      if (!item.children) return item;
-      return { ...item, children: getNewMenus(item) };
-    });
-  };
+  //   return newChildren.map((item) => {
+  //     if (!item.children) return item;
+  //     return { ...item, children: getNewMenus(item) };
+  //   });
+  // };
 
-  const NewMenus = MENUS.reduce((prev: any, curr) => {
-    if (curr.allowedwarehouse.includes(userInfo?.warehouse!)) {
-      let newChildren = getNewMenus(curr);
-      prev.push({ ...curr, children: newChildren });
-    }
-    return [...prev];
-  }, []);
+  // const NewMenus = MENUS.reduce((prev: any, curr) => {
+  //   if (curr.allowedwarehouse.includes(userInfo?.warehouse!)) {
+  //     let newChildren = getNewMenus(curr);
+  //     prev.push({ ...curr, children: newChildren });
+  //   }
+  //   return [...prev];
+  // }, []);
 
   const onClick: MenuProps["onClick"] = (e) => {
     navigate(e.key);
@@ -101,7 +105,7 @@ const SiderApp: React.FC = () => {
         onClick={onClick}
         defaultSelectedKeys={[location.pathname]}
         mode="inline"
-        items={NewMenus}
+        items={MENUS}
       />
     </Sider>
   );

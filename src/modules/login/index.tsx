@@ -31,7 +31,9 @@ const Login: React.FC = () => {
   return (
     <div className="h-screen flex justify-center items-center bg-gray-50">
       <div>
-        <div className="text-center mb-2">Please login to continue!</div>
+        <div className="text-center mb-2 text-slate-600">
+          Please login to continue!
+        </div>
         <div className="border border-gray-200 border-solid bg-white p-5">
           <form
             className="mx-auto"

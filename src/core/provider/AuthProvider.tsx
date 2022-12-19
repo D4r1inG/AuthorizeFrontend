@@ -23,7 +23,7 @@ interface User {
 }
 
 interface ProviderValue {
-  userInfo: User | undefined;
+  userInfo: User;
   login: (user: UserLogin) => void;
   logout: () => void;
   getUserInfoByToken: () => void;
@@ -36,7 +36,15 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectPath = location.state?.path || "/profile";
-  const [userInfo, setUserInfo] = useState<User>();
+  const [userInfo, setUserInfo] = useState<User>({
+    id: -1,
+    username: "",
+    fullname: "",
+    email: "",
+    phone: "",
+    position: "",
+    warehouse: "",
+  });
 
   const login = async (user: UserLogin) => {
     try {
@@ -71,11 +79,19 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   };
 
   const logout = () => {
-    setUserInfo(undefined);
+    setUserInfo({
+      id: -1,
+      username: "",
+      fullname: "",
+      email: "",
+      phone: "",
+      position: "",
+      warehouse: "",
+    });
     localStorage.clear();
   };
 
-  const isAuthen = userInfo ? true : false;
+  const isAuthen = userInfo && userInfo.id !== -1 ? true : false;
 
   return (
     <AuthContext.Provider
@@ -93,5 +109,5 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 };
 
 export const useAuth = () => {
-  return useContext(AuthContext)!;
+  return useContext(AuthContext) as ProviderValue;
 };

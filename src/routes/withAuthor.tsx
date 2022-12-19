@@ -18,15 +18,16 @@ const WithAuthorize: React.FC<Props> = ({
   const location = useLocation();
 
   if (isAuthen) {
-    let isAllowed = allowedposition.includes(userInfo?.position!);
+    let isAllowed = allowedposition.includes(userInfo.position);
     if (allowedwarehouse) {
       isAllowed =
-        allowedposition.includes(userInfo?.position!) &&
-        allowedwarehouse === userInfo?.warehouse;
+        allowedposition.includes(userInfo.position) &&
+        allowedwarehouse === userInfo.warehouse;
     }
 
     return isAllowed ? renderContent : <Unauthorized />;
   }
+
   return <Navigate to="/login" state={{ path: location.pathname }} replace />;
 };
 

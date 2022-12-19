@@ -14,7 +14,12 @@ const DNavBar: React.FC = () => {
         <Link to={"/profile"}>
           <Button type="primary">Profile</Button>
         </Link>
-        <Button onClick={logout}>Log out</Button>
+        <Link to={"/"}>
+          <Button>Home</Button>
+        </Link>
+        <Button danger onClick={logout}>
+          Log out
+        </Button>
       </div>
     </Header>
   );
