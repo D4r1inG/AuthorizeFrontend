@@ -39,7 +39,7 @@ Mockup data user:
 
 B1: Người dùng bắt đầu login từ đó lấy ra được các thông tin của họ và lưu vào Context API hoặc redux tùy ứng dụng
 <br/>
-B2: Khi vào các component có yêu cầu phân quyền sẽ có 1 HOC [WithAuthorize](./src/routes/withAuthor.tsx) với các component name tương ứng, các routes sẽ được quản lý ở [routes](./src/routes/routes.tsx)
+B2: Khi vào các route có yêu cầu phân quyền sẽ dẫn đến 1 Component [WithAuthorize](./src/routes/withAuthor.tsx) với các component name tương ứng, các routes sẽ được quản lý ở [routes](./src/routes/routes.tsx)
 <br/>
 B3: Trong WithAuhorize sẽ lấy ra được các Component, allowPosition, ... từ component name ([ListPage](./src/utils/listPage.ts)), từ đó kết hợp với userInfo để thực hiện phân quyền
 <br/>
