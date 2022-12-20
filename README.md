@@ -15,8 +15,11 @@ npm run dev
 
 ## Usage
 
-Dự án sử dụng React 18 và react-router-dom để thực hiện phân quyền
-Step:
+### Dự án sử dụng React 18 và react-router-dom để thực hiện phân quyền
+
+<br />
+Step
+<br />
 B1: Người dùng bắt đầu login từ đó lấy ra được các thông tin của họ và lưu vào Context API hoặc redux tùy ứng dụng
 <br/>
 B2: Khi vào các component có yêu cầu phân quyền sẽ có 1 HOC [WithAuthorize](./src/routes/withAuthor.tsx) có các component name tương ứng
