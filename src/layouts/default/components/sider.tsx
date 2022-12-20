@@ -1,6 +1,6 @@
+import React from "react";
 import { Menu, MenuProps } from "antd";
 import Sider from "antd/es/layout/Sider";
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../core/provider/AuthProvider";
 import { PlusCircleOutlined } from "@ant-design/icons";
@@ -70,6 +70,8 @@ const MENUS = [
     ],
   },
 ];
+
+const rootSubmenuKeys = ["GHTK-building", "Kho1", "Kho2"];
 
 const SiderApp: React.FC = () => {
   const { userInfo } = useAuth();

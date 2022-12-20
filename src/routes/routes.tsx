@@ -1,14 +1,8 @@
-import { lazy } from "react";
-import { NavLink, RouteObject } from "react-router-dom";
+import { RouteObject } from "react-router-dom";
 import DefaultLayout from "../layouts/default";
-import AdminContent from "../modules/AdminContent";
-import Cod1Content from "../modules/CODcontent/COD1";
-import CODcontent2 from "../modules/CODcontent/COD2";
 import Home from "../modules/home";
 import Login from "../modules/login";
-import Manager from "../modules/ManagerContent";
 import Profile from "../modules/profile";
-import UserContent from "../modules/UserContent";
 import PrivateRoute from "./PrivateRoute";
 import WithAuthorize from "./withAuthor";
 
@@ -26,50 +20,23 @@ export const routes: RouteObject[] = [
       },
       {
         path: "/manager-content",
-        element: (
-          <WithAuthorize
-            allowedposition={["manager"]}
-            renderContent={<Manager />}
-          />
-        ),
+        element: <WithAuthorize componentName="ManagerContent" />,
       },
       {
         path: "/admin-content",
-        element: (
-          <WithAuthorize
-            allowedposition={["admin", "manager"]}
-            renderContent={<AdminContent />}
-          />
-        ),
+        element: <WithAuthorize componentName="AdminContent" />,
       },
       {
         path: "/user-content",
-        element: (
-          <WithAuthorize
-            allowedposition={["admin", "user"]}
-            renderContent={<UserContent />}
-          />
-        ),
+        element: <WithAuthorize componentName="UserContent" />,
       },
       {
         path: "/cod-content-1",
-        element: (
-          <WithAuthorize
-            allowedposition={["cod"]}
-            allowedwarehouse="Kho1"
-            renderContent={<Cod1Content />}
-          />
-        ),
+        element: <WithAuthorize componentName="CODContent1" />,
       },
       {
         path: "/cod-content-2",
-        element: (
-          <WithAuthorize
-            allowedposition={["cod"]}
-            allowedwarehouse="Kho2"
-            renderContent={<CODcontent2 />}
-          />
-        ),
+        element: <WithAuthorize componentName="CODContent2" />,
       },
     ],
   },

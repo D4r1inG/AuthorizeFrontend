@@ -1,31 +1,40 @@
-import React, { ReactElement, ReactNode, useEffect } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../core/provider/AuthProvider";
 import Unauthorized from "../modules/unauthorized";
+import { PERMISSIONS } from "../utils/permissions-map";
+import { ListPageWithAuthorize } from "../utils/listPage";
 
 interface Props {
-  renderContent: ReactElement;
-  allowedposition: string[];
-  allowedwarehouse?: string;
+  componentName: string;
 }
 
-const WithAuthorize: React.FC<Props> = ({
-  renderContent,
-  allowedposition,
-  allowedwarehouse,
-}) => {
+// group_id, position_job, username
+const WithAuthorize: React.FC<Props> = ({ componentName }) => {
   const { userInfo, isAuthen } = useAuth();
   const location = useLocation();
 
   if (isAuthen) {
-    let isAllowed = allowedposition.includes(userInfo.position);
-    if (allowedwarehouse) {
-      isAllowed =
-        allowedposition.includes(userInfo.position) &&
-        allowedwarehouse === userInfo.warehouse;
+    const { Component, allowedPosition, allowedWarehouse, allowedUsername } =
+      ListPageWithAuthorize[componentName];
+
+    const isAllowed =
+      allowedPosition.includes(userInfo.position) ||
+      allowedWarehouse.includes(userInfo.warehouse) ||
+      allowedUsername.includes(userInfo.username);
+
+    if (isAllowed) {
+      return (
+        <Component
+          permission={PERMISSIONS[userInfo.position]}
+          isAllowed={(permission) =>
+            PERMISSIONS[userInfo.position].includes(permission)
+          }
+        />
+      );
     }
 
-    return isAllowed ? renderContent : <Unauthorized />;
+    return <Unauthorized />;
   }
 
   return <Navigate to="/login" state={{ path: location.pathname }} replace />;
