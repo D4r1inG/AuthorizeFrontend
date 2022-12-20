@@ -27,8 +27,8 @@ const WithAuthorize: React.FC<Props> = ({ componentName }) => {
       return (
         <Component
           permission={PERMISSIONS[userInfo.position]}
-          isAllowed={(permission) =>
-            PERMISSIONS[userInfo.position].includes(permission)
+          isAllowed={(permissionRequired) =>
+            PERMISSIONS[userInfo.position].includes(permissionRequired)
           }
         />
       );

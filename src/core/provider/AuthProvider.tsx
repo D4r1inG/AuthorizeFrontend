@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
 
-interface UserLogin {
+export interface UserLogin {
   username: string;
   password: string;
 }
@@ -27,6 +27,7 @@ interface ProviderValue {
   login: (user: UserLogin) => void;
   logout: () => void;
   getUserInfoByToken: () => void;
+  handleLoginWithAuthorAcc: (user: UserLogin) => void;
   isAuthen: boolean;
 }
 
@@ -59,6 +60,23 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       localStorage.setItem("access_token", res.data[0].accessToken);
       message.success("Login successfully!");
       navigate(redirectPath, { replace: true });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleLoginWithAuthorAcc = async (user: UserLogin) => {
+    try {
+      let res = await axios.get(
+        `http://localhost:3000/login?username=${user.username}`
+      );
+      if (res.data.length === 0) {
+        message.error("User not found!");
+        return;
+      }
+      setUserInfo(res.data[0]);
+      localStorage.setItem("access_token", res.data[0].accessToken);
+      message.success("Login successfully!");
     } catch (err) {
       console.log(err);
     }
@@ -101,6 +119,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         logout,
         getUserInfoByToken,
         isAuthen,
+        handleLoginWithAuthorAcc,
       }}
     >
       {children}

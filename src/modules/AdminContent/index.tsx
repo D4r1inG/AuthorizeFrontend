@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
-import { IPage } from "../../utils/interfacePage";
-
-const AdminContent: React.FC<IPage> = ({ permission, isAllowed }) => {
+const AdminContent: React.FC = () => {
   return <div>Only admin & manager can see this content</div>;
 };
 

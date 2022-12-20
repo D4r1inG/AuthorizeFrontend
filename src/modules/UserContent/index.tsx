@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Space, Table, Tag, Form, Popconfirm, Typography } from "antd";
-import type { ColumnsType } from "antd/es/table";
 import { IPage } from "../../utils/interfacePage";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { EditableCell } from "./editableCell";
@@ -29,7 +28,7 @@ const UserContent: React.FC<IPage> = ({ isAllowed, permission }) => {
       name: "Jim Green",
       age: 42,
       address: "London No. 1 Lake Park",
-      tags: ["loser"],
+      tags: ["cool"],
     },
     {
       key: "3",
@@ -44,10 +43,10 @@ const UserContent: React.FC<IPage> = ({ isAllowed, permission }) => {
     setTableData((prev) => {
       prev.push({
         key: Math.random().toString(),
-        name: "Joe Black",
-        age: 32,
+        name: "New member",
+        age: 20,
         address: "Sidney No. 1 Lake Park",
-        tags: ["cool", "teacher"],
+        tags: ["New"],
       });
       return [...prev];
     });
@@ -97,6 +96,11 @@ const UserContent: React.FC<IPage> = ({ isAllowed, permission }) => {
   };
 
   const columns = [
+    {
+      title: "STT",
+      width: "3%",
+      render: (text, record, index) => <span>{index + 1}</span>,
+    },
     {
       title: "Name",
       dataIndex: "name",
@@ -155,16 +159,18 @@ const UserContent: React.FC<IPage> = ({ isAllowed, permission }) => {
               </a>
             )}
             {isAllowed("delete") && (
-              <a
-                className="text-red-500"
-                onClick={() => deleteItem(record.key)}
+              <Popconfirm
+                title="Sure to delete?"
+                onConfirm={() => deleteItem(record.key)}
               >
-                <DeleteOutlined />
-              </a>
+                <a className="text-red-500">
+                  <DeleteOutlined />
+                </a>
+              </Popconfirm>
             )}
           </Space>
         ) : (
-          <span>
+          <>
             <Typography.Link
               onClick={() => save(record.key)}
               style={{ marginRight: 8 }}
@@ -174,7 +180,7 @@ const UserContent: React.FC<IPage> = ({ isAllowed, permission }) => {
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
               <a>Cancel</a>
             </Popconfirm>
-          </span>
+          </>
         );
       },
     },
@@ -198,7 +204,18 @@ const UserContent: React.FC<IPage> = ({ isAllowed, permission }) => {
 
   return (
     <div>
-      <h3> Admin, manager & user can see this content</h3>
+      <p>
+        <Tag>Manager</Tag>can <strong>view, edit, create, delete</strong>
+      </p>
+      <p>
+        <Tag>Admin</Tag>can <strong>view, edit</strong>
+      </p>
+      <p>
+        <Tag>User</Tag>can <strong>view</strong>
+      </p>
+      <p>
+        <Tag>Cod</Tag>can't <strong>view</strong>
+      </p>
       <div className="flex justify-end items-center mb-3">
         {isAllowed("create") && (
           <Button type="primary" onClick={addNew}>
