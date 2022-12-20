@@ -204,12 +204,16 @@ const UserContent: React.FC<IPage> = ({ isAllowed, permission }) => {
 
   return (
     <div>
-      <p>
-        <Tag>Manager</Tag>can <strong>view, edit, create, delete</strong>
-      </p>
-      <p>
-        <Tag>Admin</Tag>can <strong>view, edit</strong>
-      </p>
+      {isAllowed(["create", "delete"]) && (
+        <p>
+          <Tag>Manager</Tag>can <strong>view, edit, create, delete</strong>
+        </p>
+      )}
+      {isAllowed("edit") && (
+        <p>
+          <Tag>Admin</Tag>can <strong>view, edit</strong>
+        </p>
+      )}
       <p>
         <Tag>User</Tag>can <strong>view</strong>
       </p>

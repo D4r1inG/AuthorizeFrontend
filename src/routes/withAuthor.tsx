@@ -14,6 +14,17 @@ const WithAuthorize: React.FC<Props> = ({ componentName }) => {
   const { userInfo, isAuthen } = useAuth();
   const location = useLocation();
 
+  const hasPermission = (permissionRequired: string | string[]) => {
+    if (Array.isArray(permissionRequired)) {
+      return permissionRequired.every((item) =>
+        PERMISSIONS[userInfo.position].includes(item)
+      );
+    }
+    return PERMISSIONS[userInfo.position].includes(
+      permissionRequired as string
+    );
+  };
+
   if (isAuthen) {
     const { Component, allowedPosition, allowedWarehouse, allowedUsername } =
       ListPageWithAuthorize[componentName];
@@ -27,9 +38,7 @@ const WithAuthorize: React.FC<Props> = ({ componentName }) => {
       return (
         <Component
           permission={PERMISSIONS[userInfo.position]}
-          isAllowed={(permissionRequired) =>
-            PERMISSIONS[userInfo.position].includes(permissionRequired)
-          }
+          isAllowed={(permissionRequired) => hasPermission(permissionRequired)}
         />
       );
     }

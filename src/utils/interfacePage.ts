@@ -1,4 +1,4 @@
 export interface IPage {
   permission: string[];
-  isAllowed: (permission: string) => boolean;
+  isAllowed: (permission: string | string[]) => boolean;
 }
