@@ -3,8 +3,9 @@ import Cod1Content from "../modules/CODcontent/COD1";
 import COD2content from "../modules/CODcontent/COD2";
 import Manager from "../modules/ManagerContent";
 import UserContent from "../modules/UserContent";
+import { IListPage, IPage } from "./interfacePage";
 
-export const ListPageWithAuthorize = {
+export const ListPageWithAuthorize: IListPage<IPage> = {
   ManagerContent: {
     Component: Manager,
     allowedPosition: ["manager"],
